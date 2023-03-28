@@ -1,3 +1,4 @@
+using VikingTest.Services;
 using Zenject;
 
 
@@ -7,7 +8,7 @@ namespace VikingTest
     {
         public override void InstallBindings()
         {
-            
+            Container.Bind<IScoreService>().To<ScoreService>().AsSingle();
         }
     }
 }

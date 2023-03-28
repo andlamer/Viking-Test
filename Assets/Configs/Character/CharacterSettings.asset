@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70946da5d37ae724e85a524114d5edf0, type: 3}
   m_Name: CharacterSettings
   m_EditorClassIdentifier: 
+  maxHealthPoints: 20
+  startingHealthPoints: 20
+  minHealthPoints: 0
   xMovementSpeed: 5
   yMovementSpeed: 5
   gravityMultiplier: 1
@@ -20,9 +23,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   attackDamage: 1
-  attackAnimationSpeed: 2.5
-  maxHealthPoints: 0
-  startingHealthPoints: 0
-  maxStrengthPoints: 0
-  startingStrengthPoints: 0
-  ultimateAbilityStrengthCost: 0
+  attackAnimationTime: 2.5

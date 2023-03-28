@@ -289,6 +289,65 @@ Transform:
   m_Father: {fileID: 4125229683482559761}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1953844521147291519
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5562846143998366233}
+  - component: {fileID: 3555738803796399329}
+  - component: {fileID: 8026983189467926819}
+  m_Layer: 0
+  m_Name: AttackZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5562846143998366233
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953844521147291519}
+  m_LocalRotation: {x: -0, y: -0, z: -7.624523e-12, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8333398872142973162}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3555738803796399329
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953844521147291519}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5, y: 1.5, z: 1.2000061}
+  m_Center: {x: 0, y: 1, z: 0.50000304}
+--- !u!114 &8026983189467926819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953844521147291519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faad68a3372b41d68fa8b68c5f415fba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackZoneStats: {fileID: 11400000, guid: f81132c68b52444459a492cf6d671242, type: 2}
 --- !u!1 &2252861530693619482
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,9 +452,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4187053374695045817}
+  - component: {fileID: 1917864307}
+  - component: {fileID: 1917864306}
   m_Layer: 0
   m_Name: Mutant:Hips
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -418,6 +479,32 @@ Transform:
   m_Father: {fileID: 8333398872142973162}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1917864307
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3682539392572911122}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.42
+  m_Height: 1.9
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.19, z: 0.09}
+--- !u!114 &1917864306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3682539392572911122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f1add7d1e3b41ccb655e8934e49b498, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3733137111705936943
 GameObject:
   m_ObjectHideFlags: 0
@@ -1189,9 +1276,10 @@ GameObject:
   - component: {fileID: 8333398872142973162}
   - component: {fileID: 8371232256377992348}
   - component: {fileID: 919132147624984350}
+  - component: {fileID: 1917864304}
   m_Layer: 0
   m_Name: Mutant
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1210,6 +1298,7 @@ Transform:
   m_Children:
   - {fileID: 4187053374695045817}
   - {fileID: 7866161857706415340}
+  - {fileID: 5562846143998366233}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1254,7 +1343,25 @@ NavMeshAgent:
   m_Height: 1.5
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 2
+--- !u!114 &1917864304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8713900901519675984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5208bb576d3f735499f54bdc3458d248, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bodyTransform: {fileID: 8333398872142973162}
+  mutantEnemyStats: {fileID: 11400000, guid: 713ee61b4b8039041b04a42d5bac5cbc, type: 2}
+  navMeshAgent: {fileID: 919132147624984350}
+  creatureHealthComponent: {fileID: 1917864306}
+  attackZone: {fileID: 8026983189467926819}
+  animator: {fileID: 8371232256377992348}
 --- !u!1 &8713955762157967854
 GameObject:
   m_ObjectHideFlags: 0
