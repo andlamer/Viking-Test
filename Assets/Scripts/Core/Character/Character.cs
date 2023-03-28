@@ -1,6 +1,4 @@
-using System;
 using System.Threading;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -16,6 +14,7 @@ namespace VikingTest
         [SerializeField] private CreatureHealthComponent healthComponent;
 
         public bool IsDead { get; private set; }
+        public CreatureHealthComponent CharacterHealth => healthComponent;
 
         private const float Gravity = -9.81f;
         private const float GravityResetVelocityY = -2f;

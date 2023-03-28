@@ -16,8 +16,9 @@ namespace VikingTest.Core
         [SerializeField] private float angularSpeed = 180f;
         [SerializeField] private float speed = 4f;
         [SerializeField] private float stoppingDistance = 1.25f;
-        
 
+        [Header("Additional")] 
+        [SerializeField] private float corpseDisappearTime = 6f;
 
         public int MaxHealthPoints => maxHealthPoints;
         public int StartingHealthPoints => startingHealthPoints;
@@ -27,5 +28,6 @@ namespace VikingTest.Core
         public float AngularSpeed => angularSpeed;
         public float Speed => speed;
         public float StoppingDistance => stoppingDistance;
+        public float CorpseDisappearTime => corpseDisappearTime;
     }
 }

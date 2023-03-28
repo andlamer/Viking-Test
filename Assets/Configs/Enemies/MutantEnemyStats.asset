@@ -19,4 +19,5 @@ MonoBehaviour:
   acceleration: 2.5
   angularSpeed: 120
   speed: 4
-  stoppingDistance: 1
+  stoppingDistance: 1.5
+  corpseDisappearTime: 6

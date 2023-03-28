@@ -8,7 +8,7 @@ using Zenject;
 
 namespace VikingTest.Core
 {
-    public class MutantEnemy : MonoBehaviour
+    public class MutantEnemy : MonoBehaviour, IRespawnableEnemy
     {
         [SerializeField] private Transform bodyTransform;
         [SerializeField] private EnemyStats mutantEnemyStats;
@@ -16,19 +16,20 @@ namespace VikingTest.Core
         [SerializeField] private CreatureHealthComponent creatureHealthComponent;
         [SerializeField] private AutoAttackZone attackZone;
         [SerializeField] private Animator animator;
+        [SerializeField] private Collider collider;
 
-        public event Action OnEnemyDead;
+        public event Action<IRespawnableEnemy> OnDespawn;
 
         #region AnimatorHashes
 
         private static readonly int IsMovingToTarget = Animator.StringToHash("IsMovingToTarget");
         private static readonly int AttackTriggered = Animator.StringToHash("AttackTriggered");
         private static readonly int DamageTaken = Animator.StringToHash("DamageTaken");
+        private static readonly int MinHealthReached = Animator.StringToHash("MinHealthReached");
 
         #endregion
 
         private CancellationTokenSource _cancellationTokenSource;
-        private IScoreService _scoreService;
         private Pool _pool;
 
         private Transform _cachedCharacterTransform;
@@ -36,12 +37,14 @@ namespace VikingTest.Core
         private bool _chasingEnabled;
         private bool _isInAttackAnimation;
         private bool _isDead;
+        private bool _wasInitialized;
+
+        private int _respawnsCount;
 
         [Inject]
-        private void Construct(Character character, IScoreService scoreService)
+        private void Construct(Character character)
         {
             _cachedCharacterTransform = character.transform;
-            _scoreService = scoreService;
         }
 
         private void Awake()
@@ -54,13 +57,18 @@ namespace VikingTest.Core
 
         private void OnEnable()
         {
-            // if (!_wasInitialized)
-            //     return;
+            if (!_wasInitialized)
+                return;
 
             _cancellationTokenSource = new CancellationTokenSource();
+
             navMeshAgent.enabled = false;
             _isInAttackAnimation = false;
             _isDead = false;
+            collider.enabled = true;
+
+            var mutantHealth = mutantEnemyStats.MaxHealthPoints + _respawnsCount;
+            creatureHealthComponent.SetHealthStats(mutantEnemyStats.MinHealthPoints, mutantHealth, mutantHealth);
 
             if (_cachedCharacterTransform != null)
                 EnableAI().Forget();
@@ -70,11 +78,11 @@ namespace VikingTest.Core
 
         private void OnDisable()
         {
-            // if (!_wasInitialized)
-            // {
-            //     _wasInitialized = true;
-            //     return;
-            // }
+            if (!_wasInitialized)
+            {
+                _wasInitialized = true;
+                return;
+            }
 
             _cancellationTokenSource?.Cancel();
             _cancellationTokenSource?.Dispose();
@@ -84,11 +92,7 @@ namespace VikingTest.Core
             Unsubscribe();
         }
 
-        private void OnDamageTaken()
-        {
-            if (!_isDead)
-                animator.SetTrigger(DamageTaken);
-        }
+        public void IncreaseSpawnCount() => _respawnsCount++;
 
         private async UniTask EnableAI()
         {
@@ -109,10 +113,17 @@ namespace VikingTest.Core
             }
         }
 
-        private void OnDeath()
+        private async void OnDeath()
         {
+            if (_isDead) return;
+
+            animator.SetTrigger(MinHealthReached);
+            navMeshAgent.enabled = false;
+            collider.enabled = false;
+            _isDead = true;
+            await UniTask.Delay(TimeSpan.FromSeconds(mutantEnemyStats.CorpseDisappearTime), cancellationToken: _cancellationTokenSource.Token);
+
             Unsubscribe();
-            _scoreService.IncreaseKilledEnemiesCounter();
 
             if (_pool == null)
             {
@@ -120,8 +131,8 @@ namespace VikingTest.Core
                 return;
             }
 
-            OnEnemyDead?.Invoke();
             _pool.Despawn(this);
+            OnDespawn?.Invoke(this);
         }
 
         private void OnAttackStarted()
@@ -132,14 +143,24 @@ namespace VikingTest.Core
             _isInAttackAnimation = true;
         }
 
+        private void OnDamageTaken()
+        {
+            if (!_isDead)
+                animator.SetTrigger(DamageTaken);
+        }
+
         private void OnAttackFinished()
         {
+            if (_isDead) return;
+
             _isInAttackAnimation = false;
             navMeshAgent.enabled = attackZone.TargetsInZone == 0;
         }
-        
+
         private void OnAllTargetsLeftAttackZone()
         {
+            if (_isDead) return;
+            
             navMeshAgent.enabled = true;
         }
 
@@ -160,7 +181,7 @@ namespace VikingTest.Core
             attackZone.AttackFinished -= OnAttackFinished;
             attackZone.AllTargetsLeftZone -= OnAllTargetsLeftAttackZone;
         }
-        
+
         private void SetPool(Pool pool) => _pool = pool;
 
         public class Pool : MonoMemoryPool<Vector3, MutantEnemy>

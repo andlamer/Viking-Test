@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 188b072ee2c640eca13e99b4a9c60ed3, type: 3}
   m_Name: MutantAttackParameters
   m_EditorClassIdentifier: 
-  attackCooldown: 5
+  attackCooldown: 2
   firstSwingDelay: 0.15
   swingTime: 1.25
   damageTimeWindow: 0.45
   attackExitTime: 0.85
+  damage: 1

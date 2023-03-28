@@ -6,14 +6,15 @@ namespace VikingTest
     public class CreatureHealthComponent : MonoBehaviour, IDamageable, IHealable
     {
         public event Action MinHealthReached;
-        public event Action<int> HealthAmountChanged;
         public event Action DamageTaken;
+
+        public event Action<int> HealthAmountChanged;
 
         private int _currentHealth;
         private int _maxHealth;
         private int _minHealth;
         
-        public void SetHealthStats(int minHealth, int maxHealth, int currentHealth)
+        public virtual void SetHealthStats(int minHealth, int maxHealth, int currentHealth)
         {
             _currentHealth = currentHealth;
             _maxHealth = maxHealth;

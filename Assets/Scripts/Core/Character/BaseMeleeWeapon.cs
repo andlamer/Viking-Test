@@ -31,7 +31,7 @@ namespace VikingTest
             _cancellationTokenSource.Dispose();
             _cancellationTokenSource = null;
         }
-        
+
         private void OnTriggerEnter(Collider other)
         {
             if (!meleeWeaponStats.DamageTargetTags.Contains(other.tag) || !other.TryGetComponent<IDamageable>(out var damageable)) return;
@@ -83,6 +83,7 @@ namespace VikingTest
 
             //send attack on cooldown
             await UniTask.Delay(TimeSpan.FromSeconds(meleeWeaponStats.AttackParameters.AttackCooldown), cancellationToken: _cancellationTokenSource.Token);
+            _damageablesAffected.Clear();
             _alreadyDamagedObjects.Clear();
             _isAbleToAttack = true;
         }

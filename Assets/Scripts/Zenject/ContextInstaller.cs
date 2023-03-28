@@ -9,6 +9,7 @@ namespace VikingTest
         public override void InstallBindings()
         {
             Container.Bind<IScoreService>().To<ScoreService>().AsSingle();
+            Container.Bind<IEnemySpawnService>().To<EnemySpawnService>().AsSingle();
         }
     }
 }

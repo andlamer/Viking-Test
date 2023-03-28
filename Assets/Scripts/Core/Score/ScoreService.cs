@@ -1,11 +1,19 @@
-﻿namespace VikingTest.Services
+﻿using System;
+
+namespace VikingTest.Services
 {
     public class ScoreService : IScoreService
     {
-        private int _killedEnemiesAmount;
+        public event Action<int> ScoreUpdated;
 
-        public void ResetKilledEnemiesCounter() => _killedEnemiesAmount = 0;
-        public void IncreaseKilledEnemiesCounter() => _killedEnemiesAmount += 1;
-        public int GetKilledEnemiesCounter() => _killedEnemiesAmount;
+        private int _currentScore;
+
+        public void IncreaseScore()
+        {
+            _currentScore += 1;
+            ScoreUpdated?.Invoke(_currentScore);
+        }
+
+        public int GetCurrentScore() => _currentScore;
     }
 }
