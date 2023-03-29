@@ -603,7 +603,7 @@ GameObject:
   - component: {fileID: 4187053374695045817}
   - component: {fileID: 1917864307}
   - component: {fileID: 843182729}
-  - component: {fileID: 4111167370280571846}
+  - component: {fileID: 8253541723532357303}
   m_Layer: 0
   m_Name: Mutant:Hips
   m_TagString: Enemy
@@ -659,7 +659,7 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &4111167370280571846
+--- !u!114 &8253541723532357303
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -668,10 +668,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3682539392572911122}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb6f53b8a67247d48e871ecdade1d5bc, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f1add7d1e3b41ccb655e8934e49b498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBar: {fileID: 8503658618078048444}
 --- !u!1 &3733137111705936943
 GameObject:
   m_ObjectHideFlags: 0
@@ -1174,8 +1173,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2186198666319554260}
   - component: {fileID: 8503658618078048444}
+  - component: {fileID: 4814049614150463470}
   m_Layer: 0
-  m_Name: Slider
+  m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1255,6 +1255,20 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4814049614150463470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7392189507720930572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb6f53b8a67247d48e871ecdade1d5bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 8503658618078048444}
+  creatureHealth: {fileID: 8253541723532357303}
 --- !u!1 &7403023970620955267
 GameObject:
   m_ObjectHideFlags: 0
@@ -1765,7 +1779,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8713900901519675984}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
@@ -1795,10 +1809,10 @@ MonoBehaviour:
   bodyTransform: {fileID: 8333398872142973162}
   mutantEnemyStats: {fileID: 11400000, guid: 713ee61b4b8039041b04a42d5bac5cbc, type: 2}
   navMeshAgent: {fileID: 919132147624984350}
-  creatureHealthComponent: {fileID: 4111167370280571846}
+  creatureHealthComponent: {fileID: 8253541723532357303}
   attackZone: {fileID: 8026983189467926819}
   animator: {fileID: 8371232256377992348}
-  collider: {fileID: 1917864307}
+  mutantBodyCollider: {fileID: 1917864307}
 --- !u!1 &8713955762157967854
 GameObject:
   m_ObjectHideFlags: 0

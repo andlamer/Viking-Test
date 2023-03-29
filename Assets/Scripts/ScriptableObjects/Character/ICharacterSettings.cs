@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace VikingTest
+namespace VikingTest.Core.ScriptableObjects
 {
     internal interface ICharacterSettings
     {
@@ -13,6 +13,7 @@ namespace VikingTest
         float GravityMultiplier { get; }
         float GroundDistance { get; }
         LayerMask GroundMask { get; }
-        float AttackCooldown { get; }
+        
+        float DeathDelay { get; }
     }
 }

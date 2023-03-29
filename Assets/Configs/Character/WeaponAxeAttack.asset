@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 188b072ee2c640eca13e99b4a9c60ed3, type: 3}
   m_Name: WeaponAxeAttack
   m_EditorClassIdentifier: 
-  attackCooldown: 0.5
+  attackCooldown: 0.2
   firstSwingDelay: 0
   swingTime: 0.83
   damageTimeWindow: 0.5
   attackExitTime: 0.8
+  interruptionDelay: 0.2
   damage: 1

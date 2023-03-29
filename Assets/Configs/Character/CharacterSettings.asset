@@ -22,5 +22,4 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 256
-  attackDamage: 1
-  attackAnimationTime: 2.5
+  deathDelay: 5

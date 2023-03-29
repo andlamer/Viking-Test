@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using Zenject;
 
-namespace VikingTest.ScriptableObjects
+namespace VikingTest.Core.ScriptableObjects
 {
-    [CreateAssetMenu(fileName = "CharacterSettings", menuName = "ScriptableObjects/CharacterSettings", order = 1)]
+    [CreateAssetMenu(menuName = "ScriptableObjects/CharacterSettings", fileName = "CharacterSettings", order = 0)]
     public class CharacterSettings : ScriptableObjectInstaller, ICharacterSettings
     {
         [Header("Health")] 
@@ -18,10 +18,9 @@ namespace VikingTest.ScriptableObjects
         [SerializeField] private float groundDistance = 0.1f;
         [SerializeField] private LayerMask groundMask;
 
-        [Header("Attack")] 
-        [SerializeField] private int attackDamage = 1;
-        [SerializeField] private float attackAnimationTime = 2.5f;
-
+        [Header("Death")]
+        [SerializeField] private float deathDelay = 6f;
+        
         public int MaxHealthPoints => maxHealthPoints;
         public int StartingHealthPoints => startingHealthPoints;
         public int MinHealthPoints => minHealthPoints;
@@ -29,9 +28,8 @@ namespace VikingTest.ScriptableObjects
         public float GravityMultiplier => gravityMultiplier;
         public float GroundDistance => groundDistance;
         public LayerMask GroundMask => groundMask;
-        public int AttackDamage => attackDamage;
-        public float AttackCooldown => attackAnimationTime;
-        
+        public float DeathDelay => deathDelay;
+
         public override void InstallBindings()
         {
             Container.Bind<ICharacterSettings>().FromInstance(this).AsSingle();
