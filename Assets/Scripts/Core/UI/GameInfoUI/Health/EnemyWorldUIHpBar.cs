@@ -11,6 +11,7 @@ namespace VikingTest.Core.UI
         [SerializeField] private Slider healthBar;
         [SerializeField] private CreatureHealthComponent creatureHealth;
 
+        private Transform _cachedBarTransform;
         private Character _character;
 
         [Inject]
@@ -27,6 +28,7 @@ namespace VikingTest.Core.UI
         private void Start()
         {
             creatureHealth.HealthAmountChanged += UpdateHealthBar;
+            _cachedBarTransform = healthBar.transform;
         }
 
         private void OnDestroy()
@@ -36,12 +38,18 @@ namespace VikingTest.Core.UI
 
         private void Update()
         {
-            var gameObjectTransform = healthBar.gameObject.transform;
-            gameObjectTransform.LookAt(_character.transform);
-            
-            var rotation = gameObjectTransform.rotation;
-            rotation = Quaternion.Euler(0, rotation.eulerAngles.y, rotation.eulerAngles.z);
-            gameObjectTransform.rotation = rotation;
+            if (UnityEngine.Camera.main != null)
+            {
+                _cachedBarTransform.LookAt(UnityEngine.Camera.main.transform);
+            }
+            else
+            {
+                _cachedBarTransform.LookAt(_character.transform);
+                
+                var rotation = _cachedBarTransform.rotation;
+                rotation = Quaternion.Euler(0, rotation.eulerAngles.y, rotation.eulerAngles.z);
+                _cachedBarTransform.rotation = rotation;
+            }
         }
 
         private void SetHealthStats()
